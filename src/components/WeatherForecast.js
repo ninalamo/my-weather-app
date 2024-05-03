@@ -32,7 +32,6 @@ const WeatherForecast = () => {
   }
 
   return (
-    <Layout isLoggedIn={weatherData}>
       <div className="container mt-5">
         <h2>5-Day Weather Forecast</h2>
         <div className="row">
@@ -53,7 +52,7 @@ const WeatherForecast = () => {
           ))}
         </div>
       </div>
-    </Layout>
+  
   );
 };
 

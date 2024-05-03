@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Login from './components/Login';
 import WeatherForecast from './components/WeatherForecast';
 // Import other components (Navbar, Sidebar, Layout)
@@ -9,6 +9,7 @@ import Layout from './components/Layout'; // Import Layout component
 import './App.css'; // Import your CSS file
 import 'bootstrap'; // Import Bootstrap (optional)
 import { PrivateRoute } from './components/PrivateRoute'; // Import PrivateRoute component
+import Home from './components/Home';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -26,25 +27,30 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
+    console.log(isLoggedIn);
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* Protected Routes using Layout */}
+        {/* Home route - conditionally render based on login status */}
+        <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" replace />} />
+
+        {/* Protected Routes using Layout */}
+        <Route element={<Layout />}>
           <Route
             index
             path="/weather"
-            element={
-              <PrivateRoute> {/* Wrap Home in PrivateRoute */}
-                <WeatherForecast />
-              </PrivateRoute>
-            }
+            element={<WeatherForecast />}
           />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="*" element={<Outlet />} />
+          {/* Other protected routes... */}
         </Route>
+
+        {/* Login route */}
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+
+        {/* Catch-all route for unauthorized access */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
   );
