@@ -35,6 +35,7 @@ function App() {
           {/* Protected Routes using Layout */}
           <Route
             index
+            path="/weather"
             element={
               <PrivateRoute> {/* Wrap Home in PrivateRoute */}
                 <WeatherForecast />

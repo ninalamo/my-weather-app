@@ -15,6 +15,7 @@ const WeatherForecast = () => {
           const response = await axios.get('https://localhost:7101/api/weather', {
             headers: { Authorization: `Bearer ${token}` },
           });
+          console.log(response.data);
           setWeatherData(response.data);
         } catch (error) {
           console.error(error);
@@ -31,7 +32,7 @@ const WeatherForecast = () => {
   }
 
   return (
-    <Layout>
+    <Layout isLoggedIn={weatherData}>
       <div className="container mt-5">
         <h2>5-Day Weather Forecast</h2>
         <div className="row">
