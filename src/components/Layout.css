@@ -1,0 +1,19 @@
+.layout-container {
+    display: flex; /* Allow sidebar and content to sit side-by-side */
+  }
+  
+  .sidebar {
+    width: 200px; /* Adjust sidebar width as needed */
+    background-color: #f0f0f0; /* Example background color */
+    padding: 10px;
+    position: fixed; /* Fix sidebar to the left */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Set sidebar height to full viewport */
+  }
+  
+  .content {
+    flex: 1; /* Content takes up remaining space */
+    padding: 10px;
+  }
+  
